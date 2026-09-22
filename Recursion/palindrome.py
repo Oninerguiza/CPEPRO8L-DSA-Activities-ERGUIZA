@@ -1,11 +1,11 @@
 def is_palindrome(s):
-    rev = ''.join(reversed(s))
-
-    if s == rev:
+    if len(s) <= 1:
         return True
 
-    else:
+    if s[0] != s[-1]:
         return False
+
+    return is_palindrome(s[1:-1])
 
 print(is_palindrome("madam"))
 print(is_palindrome("racecar")) 
