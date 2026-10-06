@@ -11,7 +11,6 @@ def insert(root, value):
 
     if value < root.data:
         root.left = insert(root.left, value)
-
     elif value > root.data:
         root.right = insert(root.right, value)
 
@@ -31,10 +30,8 @@ def search(root, key):
 
     if key == root.data:
         return True
-
     elif key < root.data:
         return search(root.left, key)
-
     else:
         return search(root.right, key)
 
@@ -44,7 +41,6 @@ def find_min(root):
         return None
 
     current = root
-
     while current.left is not None:
         current = current.left
 
@@ -56,7 +52,6 @@ def find_max(root):
         return None
 
     current = root
-
     while current.right is not None:
         current = current.right
 
@@ -67,59 +62,57 @@ def main():
     root = None
 
     while True:
-        print("\n===== BINARY SEARCH TREE =====")
-        print("1. Insert")
-        print("2. Display In-Order")
-        print("3. Search")
-        print("4. Find Minimum")
-        print("5. Find Maximum")
-        print("6. Exit")
+        print("\n=================================")
+        print("--- BINARY SEARCH TREE SYSTEM ---")
+        print("[1] Insert a Number")
+        print("[2] Display All (Sorted / In-Order)")
+        print("[3] Search for a Number")
+        print("[4] Display Minimum & Maximum Values")
+        print("[5] Exit")
+        print("=================================")
 
-        choice = input("Enter your choice: ")
+        choice = input("Select option (1-5): ")
 
         if choice == "1":
-            value = int(input("Enter value to insert: "))
-            root = insert(root, value)
-            print("Inserted", {value})
+            try:
+                value = int(input("Enter a number to insert: "))
+                root = insert(root, value)
+                print(f"Inserted {value}.")
+            except ValueError:
+                print("Please enter a valid number.")
 
         elif choice == "2":
             if root is None:
                 print("The tree is empty.")
             else:
-                print("In-order traversal:", end=" ")
+                print("In-Order (Sorted): ", end="")
                 in_order(root)
                 print()
 
         elif choice == "3":
-            key = int(input("Enter value to search: "))
+            try:
+                key = int(input("Enter a number to search: "))
 
-            if search(root, key):
-                print("Found")
-            else:
-                print("Not Found")
+                if search(root, key):
+                    print("Found")
+                else:
+                    print("Not Found")
+            except ValueError:
+                print("Please enter a valid number.")
 
         elif choice == "4":
-            minimum = find_min(root)
-
-            if minimum is None:
+            if root is None:
                 print("The tree is empty.")
             else:
-                print("Minimum value:", minimum)
+                print("Minimum:", find_min(root))
+                print("Maximum:", find_max(root))
 
         elif choice == "5":
-            maximum = find_max(root)
-
-            if maximum is None:
-                print("The tree is empty.")
-            else:
-                print("Maximum value:", maximum)
-
-        elif choice == "6":
-            print("Program ended.")
+            print("Exiting program. Goodbye!")
             break
 
         else:
-            print("Invalid choice.")
+            print("Invalid option. Please select 1-5.")
 
 
 if __name__ == "__main__":
