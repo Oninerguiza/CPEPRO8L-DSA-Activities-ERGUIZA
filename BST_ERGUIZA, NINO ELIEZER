@@ -1,0 +1,126 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+
+def insert(root, value):
+    if root is None:
+        return Node(value)
+
+    if value < root.data:
+        root.left = insert(root.left, value)
+
+    elif value > root.data:
+        root.right = insert(root.right, value)
+
+    return root
+
+
+def in_order(root):
+    if root is not None:
+        in_order(root.left)
+        print(root.data, end=" ")
+        in_order(root.right)
+
+
+def search(root, key):
+    if root is None:
+        return False
+
+    if key == root.data:
+        return True
+
+    elif key < root.data:
+        return search(root.left, key)
+
+    else:
+        return search(root.right, key)
+
+
+def find_min(root):
+    if root is None:
+        return None
+
+    current = root
+
+    while current.left is not None:
+        current = current.left
+
+    return current.data
+
+
+def find_max(root):
+    if root is None:
+        return None
+
+    current = root
+
+    while current.right is not None:
+        current = current.right
+
+    return current.data
+
+
+def main():
+    root = None
+
+    while True:
+        print("\n===== BINARY SEARCH TREE =====")
+        print("1. Insert")
+        print("2. Display In-Order")
+        print("3. Search")
+        print("4. Find Minimum")
+        print("5. Find Maximum")
+        print("6. Exit")
+
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            value = int(input("Enter value to insert: "))
+            root = insert(root, value)
+            print("Inserted", {value})
+
+        elif choice == "2":
+            if root is None:
+                print("The tree is empty.")
+            else:
+                print("In-order traversal:", end=" ")
+                in_order(root)
+                print()
+
+        elif choice == "3":
+            key = int(input("Enter value to search: "))
+
+            if search(root, key):
+                print("Found")
+            else:
+                print("Not Found")
+
+        elif choice == "4":
+            minimum = find_min(root)
+
+            if minimum is None:
+                print("The tree is empty.")
+            else:
+                print("Minimum value:", minimum)
+
+        elif choice == "5":
+            maximum = find_max(root)
+
+            if maximum is None:
+                print("The tree is empty.")
+            else:
+                print("Maximum value:", maximum)
+
+        elif choice == "6":
+            print("Program ended.")
+            break
+
+        else:
+            print("Invalid choice.")
+
+
+if __name__ == "__main__":
+    main()
